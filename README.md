@@ -4,7 +4,7 @@
 
 ### 1. Clone the Repository
 ```bash
-git clone <repository-url>
+git clone https://github.com/chikin030611/ai-momentum-coding-exercise.git
 cd ai-momentum-coding-exercise
 ```
 
@@ -23,7 +23,13 @@ BASE_URL=https://api.apilayer.com/fixer/latest
 
 ### 4. Start the Server
 ```bash
-node server.js
+npm start
 ```
+
+### 5. Open the html
+```bash
+open index.html
+```
+
 
 The application will be available at `http://localhost:3000`
