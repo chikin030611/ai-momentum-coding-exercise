@@ -15,12 +15,18 @@ async function fetchForexRates() {
     }
 }
 
-function addValueToRates(data) {
-    const processedData = data.rates;
-    Object.keys(processedData).forEach(key => {
-        processedData[key] += 10.002;
+function processRates(data) {
+    // Returns an array of objects: [{ currency, rate, adjustedRate }]
+    if (!data || !data.rates) return [];
+    const processed = [];
+    Object.entries(data.rates).forEach(([currency, rate]) => {
+        processed.push({
+            currency: currency,
+            rate: rate,
+            adjustedRate: rate + 10.002
+        });
     });
-    return processedData;
+    return processed;
 }
 
 function isEven(value) {
@@ -31,15 +37,20 @@ function isHKD(currency) {
     return currency === 'HKD';
 }
 
-function renderForexRates(rates) {
+function renderForexRates(data) {
     const tbody = document.getElementById('forex-rates-body');
     tbody.innerHTML = '';
+
     
-    Object.entries(rates).forEach(([currency, rate]) => {
+    Object.entries(data).forEach(([currency, rate]) => {
         const row = document.createElement('tr');
+
+        const adjustedRate = rate + 10.0002
+
         row.innerHTML = `
             <td>${currency}</td>
             <td>${rate.toFixed(4)}</td>
+            <td>${adjustedRate.toFixed(4)}</td>
         `;
         tbody.appendChild(row);
     });

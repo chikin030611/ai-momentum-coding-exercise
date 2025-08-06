@@ -13,6 +13,8 @@ const baseUrl = 'https://api.apilayer.com/fixer/latest';
 
 app.get('/api/forex-rates', async (req, res) => {
     try {
+        console.log("Fetching data...")
+
         const response = await fetch(`${baseUrl}`, {
             method: 'GET',
             headers: {
@@ -31,6 +33,7 @@ app.get('/api/forex-rates', async (req, res) => {
         }
 
         res.json(data);
+        console.log('Data is succesfully fetched!')
     } catch (error) {
         console.error('Error fetching data:', error);
         res.status(500).json({ error: 'Failed to fetch forex rates' });
