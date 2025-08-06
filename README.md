@@ -17,7 +17,7 @@ npm install dotenv
 ### 3. Environment Configuration
 Create a `.env` file in the root directory:
 ```env
-API_KEY=your_fixer_api_key_here
+API_KEY=your_api_key_here
 BASE_URL=https://api.apilayer.com/fixer/latest
 ```
 
