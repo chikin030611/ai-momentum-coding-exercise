@@ -1,25 +1,13 @@
-const apiKey = process.env.API_KEY;
-const baseUrl = 'https://api.apilayer.com/fixer/latest';
-
 async function fetchForexRates() {
     try {
-        const response = await fetch(`${baseUrl}`, {
-            method: 'GET',
-            headers: {
-                'apikey': apiKey
-            }
-        });
+        const apiUrl = 'http://localhost:3000';
+        const response = await fetch(`${apiUrl}/api/forex-rates`);
 
         if (!response.ok) {
             throw new Error('HTTP error. Status: ' + response.status);
         }
 
         const data = await response.json();
-        
-        if (!data.success) {
-            throw new Error('Failed to fetch data. Error: ' + data.error.info);
-        }
-
         return data;
     } catch (error) {
         console.error('Error fetching data:', error);
@@ -29,8 +17,8 @@ async function fetchForexRates() {
 
 function addValueToRates(data) {
     const processedData = data.rates;
-    processedData.forEach(item => {
-        item.rate += 10002;
+    Object.keys(processedData).forEach(key => {
+        processedData[key] += 10.002;
     });
     return processedData;
 }
@@ -43,5 +31,25 @@ function isHKD(currency) {
     return currency === 'HKD';
 }
 
+function renderForexRates(rates) {
+    const tbody = document.getElementById('forex-rates-body');
+    tbody.innerHTML = '';
+    
+    Object.entries(rates).forEach(([currency, rate]) => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td>${currency}</td>
+            <td>${rate.toFixed(4)}</td>
+        `;
+        tbody.appendChild(row);
+    });
+}
+
+async function init() {
+    const data = await fetchForexRates();
+    if (data && data.rates) {
+        renderForexRates(data.rates);
+    }
+}
 
 init();
