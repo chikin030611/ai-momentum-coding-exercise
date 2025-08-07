@@ -20,6 +20,11 @@ Create a `.env` file in the root directory:
 API_KEY=your_api_key_here
 BASE_URL=https://api.apilayer.com/fixer/latest
 ```
+If the default key is unusable, please create a new key. The `.env` file should be as follows:
+```env
+API_KEY=your_api_key_here
+BASE_URL=http://api.exchangeratesapi.io/v1/latest?access_key=your_api_key_here
+```
 
 ### 4. Start the Server
 ```bash
